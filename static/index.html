@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="js/Game.js"></script>
+    <script src="js/Net.js"></script>
+    <script src="js/UI.js"></script>
+    <script src="libs/three.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script src="js/socket.io.min.js"></script>
+    <script>
+        /*
+                                                	        Class initialization
+                                                        */
+
+        var game;
+        var net;
+        var ui;
+        window.addEventListener("load", function() {
+            var socket = io("http://" + "localhost" + ":3000/");
+            game = new Game();
+            net = new Net(socket);
+            ui = new Ui(socket);
+
+
+        })
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Verdana, sans-serif;
+            /*height: 100vh;*/
+            overflow: hidden;
+        }
+        
+        #main {
+            position: absolute;
+        }
+        /*#select{
+           position: absolute;
+           left: 10px;
+           top: 10px;
+           z-index: 2;
+        }*/
+        
+        #login {
+            position: absolute;
+            color: white;
+            /*left: 100px;*/
+            z-index: 3;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.63);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #elements {
+            margin: auto;
+        }
+        
+        #elements>* {
+            display: block;
+            font-size: 1.5em;
+            margin: 0 auto;
+            margin-top: 10px;
+        }
+        
+        #elements input[type=button] {
+            border: 0;
+            width: 100%;
+        }
+        #elements input[type=button]:hover {
+            cursor: pointer;
+            box-shadow: 0 0 20px white;
+        }
+    
+
+        #message {
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        #waitOverlay {
+            display: flex;
+            position: absolute;
+            z-index: 3;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.74)
+        }
+        
+        #wait__content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: auto;
+            width: 20vw;
+            height: 20vh;
+            color: white;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        #loading {
+            margin-top: 10%;
+            width: 20%;
+        }
+        
+        .hidden {
+            visibility: hidden;
+            /*z-index: -1;*/
+            opacity: 0;
+        }
+        
+        .visible {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        #info {
+            user-select: none;
+            pointer-events: none;
+            position: absolute;
+            /*z-index: 2;*/
+            top: 5%;
+            left: 0;
+            width: 100%;
+            z-index: 2;
+            display: flex;
+        }
+        
+        .game-info {
+            margin: auto;
+            font-size: 1.5em;
+            color: white;
+            text-transform: uppercase;
+            text-align: center;
+            /*position: absolute;*/
+        }
+        
+        #info-content {
+            pointer-events: none;
+            user-select: none;
+            transition: opacity 2s;
+        }
+    </style>
+    <!--<style type="text/css" href="style.css"></style>-->
+</head>
+
+<body>
+    <header id="info" class="hidden">
+        <span class="game-info"><span id="info-content"></span></span>
+    </header>
+    <div class="hidden" id="waitOverlay">
+        <div id="wait__content">
+            <div>Czekam na drugiego użytkownika</div>
+            <img id="loading" src="http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_gray_512.gif" />
+        </div>
+    </div>
+    <div id="login">
+        <div id="elements">
+            <div id="message"></div>
+
+            <input id="user-name" type="text" placeholder="Your login" autofocus/>
+            <input id="loginBt" type="button" value="LOGIN" />
+            <!-- <input id="deleteBt" type="button" value="USUŃ USERÓW" /> -->
+        </div>
+    </div>
+    <!--<select id="select">
+        <option value="one">Pozycja 0</option>
+        <option value="two">Pozycja 1</option>
+    </select>-->
+    <div id="main"></div>
+    <!--<input type="button" value="ustaw" id="bt1" />
+    <input type="button" value="pobierz" id="bt2" />
+    <input type="button" value="send" id="bt3" />-->
+</body>
+
+</html>
