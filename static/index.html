@@ -19,7 +19,7 @@
         var net;
         var ui;
         window.addEventListener("load", function() {
-            var socket = io("http://" + "localhost" + ":3000/");
+            var socket = io();
             game = new Game();
             net = new Net(socket);
             ui = new Ui(socket);
