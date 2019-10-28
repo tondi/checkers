@@ -5,7 +5,7 @@ function Net(socket) {
   this.sendData = function(data) {
 
     $.ajax({
-      url: "http://" + "localhost" + ":6020/",
+      url: "/:6020/",
       data: data,
       type: "POST",
       success: function(data) {
